@@ -38,6 +38,8 @@ vcpkg_from_github(
         cmake-config.diff
         pkgconfig.diff
         CVE-2026-7598-256d04b-applied.diff
+        CVE-2026-7598-2fedc0b-applied.diff
+        CVE-2026-7598-338f4e5-applied.diff
         CVE-2026-7598-7b1fdaa-applied.diff
         ${LIBSSH2_CVE_2026_58051_PATCH}
         CVE-2026-58050-3449752-applied.diff
