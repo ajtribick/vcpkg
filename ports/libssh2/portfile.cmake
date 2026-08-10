@@ -1,3 +1,9 @@
+vcpkg_download_distfile(LIBSSH2_SFTP_SYMLINK_PATCH
+    URLS https://github.com/libssh2/libssh2/commit/4ed26f5740bdd409269ed9fb48a28bf8f565b681.patch?full_index=1
+    FILENAME libssh2-sftp-symlink.patch
+    SHA512 5bc8a333cfdb0aaa9003daa315aea4306096ab0afbfc6541ce8643369a9bb8376dc176b54d2b0ef85007c3a503269d2b61cecbabb658a2a5493f5590696677fc
+)
+
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO libssh2/libssh2
@@ -8,12 +14,14 @@ vcpkg_from_github(
         cmake-config.diff
         pkgconfig.diff
         CVE-2026-7598-256d04b-applied.diff
+        CVE-2026-7598-7b1fdaa-applied.diff
         CVE-2026-58051-a9758da.diff
         CVE-2026-58050-3449752-applied.diff
         CVE-2026-55200-97acf3d-applied.diff
         CVE-2026-55199-1762685.diff
         libssh2_priv_h_606c102.diff # required for CVE-2025-15661 fix
         CVE-2025-15661-2dae302-applied.diff
+        ${LIBSSH2_SFTP_SYMLINK_PATCH}
         CVE-2026-66032-5e47761-applied.diff
         CVE-2026-66033-a2ed82d.diff
         CVE-2026-66034-a13bb6c-applied.diff
@@ -51,6 +59,21 @@ vcpkg_cmake_install()
 vcpkg_copy_pdbs()
 vcpkg_fixup_pkgconfig()
 vcpkg_cmake_config_fixup(CONFIG_PATH lib/cmake/libssh2)
+
+vcpkg_replace_string("${CURRENT_PACKAGES_DIR}/include/libssh2.h"
+    "1.11.1_DEV"
+    "${VERSION}"
+)
+vcpkg_replace_string("${CURRENT_PACKAGES_DIR}/lib/pkgconfig/libssh2.pc"
+    "1.11.1_DEV"
+    "${VERSION}"
+)
+if(NOT VCPKG_BUILD_TYPE)
+    vcpkg_replace_string("${CURRENT_PACKAGES_DIR}/debug/lib/pkgconfig/libssh2.pc"
+        "1.11.1_DEV"
+        "${VERSION}"
+    )
+endif()
 
 if (VCPKG_TARGET_IS_WINDOWS)
     if(VCPKG_LIBRARY_LINKAGE STREQUAL "dynamic")
