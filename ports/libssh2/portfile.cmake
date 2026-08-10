@@ -1,7 +1,31 @@
+vcpkg_download_distfile(LIBSSH2_CVE_2026_58051_PATCH
+    URLS https://github.com/libssh2/libssh2/commit/a9758da45a52bc8c630ec9493804d0c6ea30b24a.patch?full_index=1
+    FILENAME libssh2-a9758da.patch
+    SHA512 ffbb2ad956f178d5a7cbe6c338d661dc9fa7db96e49176cddfb6701c7eea36a6608e989dc6eb10d774f25d83338aeec0c24ef906b10cc963c5cb6ec5ed925a2a
+)
+
+vcpkg_download_distfile(LIBSSH2_CVE_2026_55199_PATCH
+    URLS https://github.com/libssh2/libssh2/commit/17626857d20b3c9a1addfa45979dadcee1cd84a4.patch?full_index=1
+    FILENAME libssh2-1762685.patch
+    SHA512 14d0f94e9b3544f2c9b5ef528447f3eeba7e2a3a716cf93a36b32ceecba54f3b4d2b3807928a841db8f1f9b22f81b246c955fadc569061230a5c9c21feb7e54a
+)
+
+vcpkg_download_distfile(LIBSSH2_STRING_BUF_PATCH
+    URLS https://github.com/libssh2/libssh2/commit/606c102e52f8447de2b745dd6c5ddf418defc519.patch?full_index=1
+    FILENAME libssh2-606c102.patch
+    SHA512 f0e02c087c9ea07f0f40e242554ab5924703be02f19126bf3d0151860671dd2fb6ada1d02e540a8f1681d16b315cbf819f03f0a41bfc6502bdb806b135d765e5
+)
+
 vcpkg_download_distfile(LIBSSH2_SFTP_SYMLINK_PATCH
     URLS https://github.com/libssh2/libssh2/commit/4ed26f5740bdd409269ed9fb48a28bf8f565b681.patch?full_index=1
     FILENAME libssh2-sftp-symlink.patch
     SHA512 5bc8a333cfdb0aaa9003daa315aea4306096ab0afbfc6541ce8643369a9bb8376dc176b54d2b0ef85007c3a503269d2b61cecbabb658a2a5493f5590696677fc
+)
+
+vcpkg_download_distfile(LIBSSH2_CVE_2026_66033_PATCH
+    URLS https://github.com/libssh2/libssh2/commit/a2ed82d40964bbc0d64cd717aa0a5a892117d2e6.patch?full_index=1
+    FILENAME libssh2-a2ed82d.patch
+    SHA512 0c0c2c61f2f26b5bdf9224b59d4926887d7697e7b8433ea93691469f4f8a3b6ddeef8575ada7cc3e33e1e51e0e921875c0493a2602a9c415d5cdceb5fc2fe2d3
 )
 
 vcpkg_from_github(
@@ -15,15 +39,15 @@ vcpkg_from_github(
         pkgconfig.diff
         CVE-2026-7598-256d04b-applied.diff
         CVE-2026-7598-7b1fdaa-applied.diff
-        CVE-2026-58051-a9758da.diff
+        ${LIBSSH2_CVE_2026_58051_PATCH}
         CVE-2026-58050-3449752-applied.diff
         CVE-2026-55200-97acf3d-applied.diff
-        CVE-2026-55199-1762685.diff
-        libssh2_priv_h_606c102.diff # required for CVE-2025-15661 fix
+        ${LIBSSH2_CVE_2026_55199_PATCH}
+        ${LIBSSH2_STRING_BUF_PATCH} # required for CVE-2025-15661 fix
         CVE-2025-15661-2dae302-applied.diff
         ${LIBSSH2_SFTP_SYMLINK_PATCH}
         CVE-2026-66032-5e47761-applied.diff
-        CVE-2026-66033-a2ed82d.diff
+        ${LIBSSH2_CVE_2026_66033_PATCH}
         CVE-2026-66034-a13bb6c-applied.diff
         CVE-2026-66035-42e33d8-applied.diff
 )
